@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="assets/stylesheet/gov.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="mx-auto" style="width: 70%">
+        <header>
+            <div>
+                <div class="d-flex justify-content-between align-items-center container-fluid">
+                    <a href="index.html"> <img class="img-fluid" src="/assets/images/logo.jpg" href="index.html"> </a>
+                    <div>
+                        <img style="height: 50px" style="width: 50px" src="assets/images/email-logo.png" href="mailto:info@tgif.org">
+                        <a href="mailto:info@tgif.org"> info@tgif.org </a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar bg-dark text-light d-flex justify-content-around">
+                <ul class="nav btn-group btn-group-lg" role="group">
+                    <li class="nav-item px-5">
+                        <a class="nav-link text-white" href="index.html"> Home </a>
+                    </li>
+                    <li class="d-flex">
+                        <div class="dropdown show px-5">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="members" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                113th Congress
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="members">
+                                <a class="dropdown-item" href="senate.html">Senate</a>
+                                <a class="dropdown-item" href="house.html">House</a>
+                            </div>
+                        </div>
+                        <div class="dropdown show px-5">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="attendance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Attendance
+                            </a>
+                            <div class="dropdown-menu px-5" aria-labelledby="attendance">
+                                <a class="dropdown-item" href="senate_attendance.html">Senate</a>
+                                <a class="dropdown-item" href="house_attendance.html">House</a>
+                            </div>
+                        </div>
+                        <div class="dropdown show px-5">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="loyalty" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Party Loyalty
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="loyalty">
+                                <a class="dropdown-item" href="senate_loyalty.html">Senate</a>
+                                <a class="dropdown-item" href="house_loyalty.html">House</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <h1 class="text-indent py-3" style="text-align: center"> Attendance in the House of Representatives </h1>
+        <img src="/assets/images/analog-art-beautiful-963486.jpg" class="img-fluid" alt="DC">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="border-bottom py-3">
+                    <p class="text-indent">The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
+                    <p> The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
+                    <div class="col-4"> </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="border p-2 bg-dark" style="text-align: center">
+            <a class="text-light"> The House at a Glance </a>
+        </h2>
+        <div>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Party </th>
+                        <th> Num. of Representatives </th>
+                        <th> Votes with Party &#40;%&#41; </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-light text-dark" id="glanceBody">
+                    <tr class="border-bottom" id="glanceRow"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h4 class="border p-2 bg-dark" style="text-align: center">
+            <a class="text-light" data-toggle="collapse" href="#collapseTop"> ... The Most Engaged &#40;Attendance Rate of the Top 10&#37;&#41; - Overall </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapseTop">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> Party </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41; </th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                <tbody class="bg-light text-dark" id="mostAttendBody">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h4 class="border p-2 bg-dark" style="text-align: center" href="#collapse1">
+            <a class="text-light" data-toggle="collapse" href="#collapse1"> ... The Most Engaged &#40;Attendance Rate of the Top 10&#37;&#41; - Dem. </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapse1">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41;</th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-light text-dark" id="mostAttendBodyDem">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h4 class="border p-2 bg-dark" style="text-align: center">
+            <a class="text-light" data-toggle="collapse" href="#collapse2"> ... The Most Engaged &#40;Attendance Rate of the Top 10&#37;&#41; - Rep. </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapse2">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41; </th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                <tbody class="bg-light text-dark" id="mostAttendBodyRep">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h4 class="border bg-dark p-2" style="text-align: center">
+            <a class="text-light" data-toggle="collapse" href="#collapse3"> ... The Most Engaged &#40;Attendance Rate of the Top 10&#37;&#41; - Indep. </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapse3">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41; </th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                <tbody class="bg-light text-dark" id="mostAttendBodyInd">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h4 class="border p-2 bg-dark" style="text-align: center">
+            <a class="text-light" data-toggle="collapse" href="#collapse4"> ...The Least Engaged &#40;Bottom 10&#37; Attendance Rate&#41; - Overall </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapse4">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> Party </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41; </th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-light text-dark" id="leastAttendBody">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h4 class="border p-2 bg-dark" style="text-align: center">
+            <a class="text-light" data-toggle="collapse" href="#collapse6"> ... The Least Engaged &#40;Bottom 10&#37; Attendance Rate&#41; - Dem. </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapse6">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41;</th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-light text-dark" id="leastAttendBodyDem">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h4 class="border p-2 bg-dark" style="text-align: center">
+            <a class="text-light" data-toggle="collapse" href="#collapse7"> ... The Least Engaged &#40;Bottom 10&#37; Attendance Rate&#41; - Rep. </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapse7">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41; </th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                <tbody class="bg-light text-dark" id="leastAttendBodyRep">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+        <h4 class="border p-2 bg-dark" style="text-align: center">
+            <a class="text-light" data-toggle="collapse" href="#collapse8"> ... The Least Engaged &#40;Bottom 10&#37; Attendance Rate&#41; - Indep. </a>
+        </h4>
+        <div class="panel-collapse collapse" id="collapse8">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="border">
+                        <th> Name </th>
+                        <th> State </th>
+                        <th> Seniority &#40;Years&#41; </th>
+                        <th> Num. of Missed Votes </th>
+                        <th> Missed &#40;%&#41; </th>
+                    </tr>
+                <tbody class="bg-light text-dark" id="leastAttendBodyInd">
+                    <tr class="border-bottom"> </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="my-5">
+            <div class="d-flex justify-content-center">
+                <p> &copy;2019 Transparent Government in Fact | TGIF </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/congress_113_house.js"></script>
+    <script src="/main.js"> </script>
+    <script src="/statistics.js"> </script>    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        glanceTable(allMembers)
+        topAttendTable();
+        topAttendTableDem();
+        topAttendTableRep();
+        topAttendTableInd();
+        leastAttendTable();
+        leastAttendTableDem();
+        leastAttendTableRep();
+        leastAttendTableInd();
+
+    </script>
+</body>
+
+</html>

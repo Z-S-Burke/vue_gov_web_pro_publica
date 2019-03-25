@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="assets/stylesheet/gov.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    </script>
+    <div class="mx-auto" style="width: 70%">
+        <header>
+            <div>
+                <div class="d-flex justify-content-between align-items-center container-fluid">
+                    <a href="index.html"> <img class="img-fluid" src="/assets/images/logo.jpg" href="index.html"> </a>
+                    <div>
+                        <img style="height: 50px" style="width: 50px" src="assets/images/email-logo.png" href="mailto:info@tgif.org">
+                        <a href="mailto:info@tgif.org"> info@tgif.org </a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar bg-dark text-light d-flex justify-content-around">
+                <ul class="nav btn-group btn-group-lg" role="group">
+                    <li class="nav-item px-5">
+                        <a class="nav-link text-white" href="index.html"> Home </a>
+                    </li>
+                    <li class="d-flex">
+                        <div class="dropdown show px-5">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="members" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                113th Congress
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="members">
+                                <a class="dropdown-item" href="senate.html">Senate</a>
+                                <a class="dropdown-item" href="house.html">House</a>
+                            </div>
+                        </div>
+                        <div class="dropdown show px-5">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="attendance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Attendance
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="attendance">
+                                <a class="dropdown-item" href="senate_attendance.html">Senate</a>
+                                <a class="dropdown-item" href="house_attendance.html">House</a>
+                            </div>
+                        </div>
+                        <div class="dropdown show px-5">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="loyalty" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Party Loyalty
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="loyalty">
+                                <a class="dropdown-item" href="senate_loyalty.html">Senate</a>
+                                <a class="dropdown-item" href="house_loyalty.html">House</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class=col style="height: 30px"> </div>
+        <img src="/assets/images/architecture-attractions-building-208702.jpg" class="img-fluid" alt="DC">
+        <div class=col style="height: 30px"> </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div>
+                    <h2 class="text-indent">Senators</h2>
+                    <p class="text-indent">First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
+                    <div class="col-4"> </div>
+                </div>
+            </div>
+        </div>
+        <div class=col style="height: 30px"> </div>
+        <div class="d-flex justify-content-between" style="width: 100%">
+            <div>
+                <form id="partySelect">
+                    <label> Democrat <input class="party" type="checkbox" onchange="memberTable(allMembers)" id="partyCheck" value="D"> </input> </label>
+                    <label> Independent <input class="party" type="checkbox" onchange="memberTable(allMembers)" id="partyCheck" value="I"> </input> </label>
+                    <label> Republican <input class="party" type="checkbox" onchange="memberTable(allMembers)" id="partyCheck" value="R"> </input> </label>
+                </form>
+            </div>
+            <div class="d-flex justify-content-end" style="width: 50%">
+                <div class="justify-content-around">
+                    <select v-for="(state, index) in states" :key="states.id"> {{state.abbreviation}} </select>
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover my-3" id="app">
+            <thead class="thead-dark">
+                <tr class="border" style="text-align: center">
+                    <th> Members </th>
+                    <th> Name </th>
+                    <th> Party </th>
+                    <th> State </th>
+                    <th> Seniority </th>
+                    <th> Votes with Party </th>
+                </tr>
+            </thead>
+            <tbody class="bg-light text-dark" v-for="(senator, index) in senate" :key="senate.id">
+                <tr style="text-align: center">
+                    <td> {{senator.title}} </td>
+                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
+                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
+                    <td> {{senator.party}} </td>
+                    <td> {{senator.state}} </td>
+                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
+                    <td v-else> {{senator.seniority}} years </td>
+                    <td> {{senator.votes_with_party_pct}}&#37;</td>
+                </tr>
+            </tbody>
+        </table>
+        <footer class="mt-5">
+            <div  class="d-flex justify-content-center text-light bg-dark">
+                <p> &copy;2019 Transparent Government in Fact | TGIF </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="/states.js"></script>
+    <script src="/vue_gov.js"> </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
