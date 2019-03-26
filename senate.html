@@ -8,7 +8,7 @@
 
 <body>
     </script>
-    <div class="mx-auto" style="width: 70%">
+    <div class="mx-auto" style="width: 70%" id="app">
         <header>
             <div>
                 <div class="d-flex justify-content-between align-items-center container-fluid">
@@ -73,18 +73,21 @@
         <div class="d-flex justify-content-between" style="width: 100%">
             <div>
                 <form id="partySelect">
-                    <label> Democrat <input class="party" type="checkbox" onchange="memberTable(allMembers)" id="partyCheck" value="D"> </input> </label>
-                    <label> Independent <input class="party" type="checkbox" onchange="memberTable(allMembers)" id="partyCheck" value="I"> </input> </label>
-                    <label> Republican <input class="party" type="checkbox" onchange="memberTable(allMembers)" id="partyCheck" value="R"> </input> </label>
+                    <label> Democrat <input class="party" type="checkbox" v-model="parties" id="partyCheck" value="D"> </label>
+                    <label> Independent <input class="party" type="checkbox" v-model="parties" id="partyCheck" value="I"> </label>
+                    <label> Republican <input class="party" type="checkbox" v-model="parties" id="partyCheck" value="R"> </input> </label>
                 </form>
             </div>
             <div class="d-flex justify-content-end" style="width: 50%">
                 <div class="justify-content-around">
-                    <select v-for="(state, index) in states" :key="states.id"> {{state.abbreviation}} </select>
+                    <select v-bind:value="stateSelect" v-model="stateSelect" >
+                        <option v-for="(state, index) in states"> {{state.abbreviation}} </option>
+                    </select>
                 </div>
             </div>
         </div>
-        <table class="table table-hover my-3" id="app">
+        <p> {{stateSelect}} </p>
+        <table class="table table-hover my-3">
             <thead class="thead-dark">
                 <tr class="border" style="text-align: center">
                     <th> Members </th>
@@ -96,7 +99,7 @@
                 </tr>
             </thead>
             <tbody class="bg-light text-dark" v-for="(senator, index) in senate" :key="senate.id">
-                <tr style="text-align: center">
+                <tr v-if="parties.length == 0 && stateSelect.length == 0" style="text-align: center">
                     <td> {{senator.title}} </td>
                     <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
                     <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
@@ -106,10 +109,40 @@
                     <td v-else> {{senator.seniority}} years </td>
                     <td> {{senator.votes_with_party_pct}}&#37;</td>
                 </tr>
+                <tr v-for="(party, index) in parties" v-if="parties[index] == senator.party && stateSelect.length == 0" style="text-align: center">
+                    <td> {{senator.title}} </td>
+                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
+                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
+                    <td> {{senator.party}} </td>
+                    <td> {{senator.state}} </td>
+                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
+                    <td v-else> {{senator.seniority}} years </td>
+                    <td> {{senator.votes_with_party_pct}}&#37;</td>
+                </tr>
+                <tr v-if="parties.length == 0 && stateSelect == senator.state" style="text-align: center">
+                    <td> {{senator.title}} </td>
+                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
+                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
+                    <td> {{senator.party}} </td>
+                    <td> {{senator.state}} </td>
+                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
+                    <td v-else> {{senator.seniority}} years </td>
+                    <td> {{senator.votes_with_party_pct}}&#37;</td>
+                </tr> 
+                <tr v-for="(party, index) in parties" v-if="parties[index] == senator.party && stateSelect == senator.state" style="text-align: center">
+                    <td> {{senator.title}} </td>
+                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
+                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
+                    <td> {{senator.party}} </td>
+                    <td> {{senator.state}} </td>
+                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
+                    <td v-else> {{senator.seniority}} years </td>
+                    <td> {{senator.votes_with_party_pct}}&#37;</td>
+                </tr> 
             </tbody>
         </table>
         <footer class="mt-5">
-            <div  class="d-flex justify-content-center text-light bg-dark">
+            <div class="d-flex justify-content-center text-light bg-dark">
                 <p> &copy;2019 Transparent Government in Fact | TGIF </p>
             </div>
         </footer>
