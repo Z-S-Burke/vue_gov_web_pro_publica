@@ -1,3 +1,5 @@
+/* ----- ALL OUT OF SERVICE thanks to VUE.JS ----- */
+
 function senateTable(senate) {
     console.log(senate);
     var tBody = document.getElementById("tBody");

@@ -1,53 +1,17 @@
 var allMembers = data.results[0].members; //allows us to access just the members of the representative API
 
+//comparator
+//checks to see if properties are equal, if so, return 0
+//checks to see if property of x > y, if so return 1, if not -1
+//when .sort() calls demSort() it compares values in the array according to the value of missed_votes_pct as the defining value 
 var demSort = function (property) {
     return function (x, y) {
+
         return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
     };
 };
 
-var demArray = demArr();
-demArray = demArray.sort(demSort('missed_votes_pct'));
-
-var demLoyal = demArr();
-demLoyal = demLoyal.sort(demSort('votes_with_party_pct'));
-
-var repubSort = function (property) {
-    return function (x, y) {
-        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
-    };
-};
-
-var repubArray = repArr();
-repubArray = repubArray.sort(repubSort('missed_votes_pct'));
-
-var repLoyal = repArr();
-repLoyal = repLoyal.sort(repubSort('votes_with_party_pct'));
-
-var indSort = function (property) {
-    return function (x, y) {
-        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
-    };
-};
-
-var indArray = indArr();
-indArray = indArray.sort(indSort('missed_votes_pct'));
-
-var memSort = function (property) {
-    return function (x, y) {
-        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
-    };
-};
-
-var memArray = memArr();
-memArray = memArray.sort(memSort('missed_votes_pct'));
-console.log(memArray);
-
-var memLoyal = allMembers;
-memLoyal = memLoyal.sort(memSort('votes_with_party_pct'));
-console.log(memLoyal);
-
-
+//finds all applicable party members according to the value of their party property
 function demArr() {
     var demArray = [];
     for (var i = 0; i < allMembers.length; i++) {
@@ -57,6 +21,22 @@ function demArr() {
     }
     return demArray;
 }
+
+//makes demArray a working variable for use in later functions, also sorts them according to missed_votes_pct
+var demArray = demArr();
+demArray = demArray.sort(demSort('missed_votes_pct'));
+
+//makes demLoyal a working variable for use in later functions, also sorts them according to votes_with_party_pct
+var demLoyal = demArr();
+demLoyal = demLoyal.sort(demSort('votes_with_party_pct'));
+
+
+/* ----- REPUBLICAN SORT FUNCTIONS ----- */
+var repubSort = function (property) {
+    return function (x, y) {
+        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
+    };
+};
 
 function repArr() {
     var repubArray = [];
@@ -68,6 +48,21 @@ function repArr() {
     return repubArray;
 }
 
+var repubArray = repArr();
+repubArray = repubArray.sort(repubSort('missed_votes_pct'));
+
+var repLoyal = repArr();
+repLoyal = repLoyal.sort(repubSort('votes_with_party_pct'));
+
+
+/* ----- INDEPENDENT SORT FUNCTIONS ----- */
+
+var indSort = function (property) {
+    return function (x, y) {
+        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
+    };
+};
+
 function indArr() {
     var indArray = [];
     for (var i = 0; i < allMembers.length; i++) {
@@ -78,6 +73,18 @@ function indArr() {
     return indArray;
 }
 
+var indArray = indArr();
+indArray = indArray.sort(indSort('missed_votes_pct'));
+
+
+/* ----- SORT FUNCTIONS FOR ALL MEMBERS ----- */
+
+var memSort = function (property) {
+    return function (x, y) {
+        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
+    };
+};
+
 function memArr() {
     var memArray = [];
     for (var i = 0; i < allMembers.length; i++) {
@@ -87,6 +94,17 @@ function memArr() {
     return memArray;
 }
 
+var memArray = memArr();
+memArray = memArray.sort(memSort('missed_votes_pct'));
+console.log(memArray);
+
+var memLoyal = allMembers;
+memLoyal = memLoyal.sort(memSort('votes_with_party_pct'));
+console.log(memLoyal);
+
+/* ----- ALL FUNCTIONS FOR THE 'AT A GLANCE' TABLES ----- */
+
+//finds the total value of properties for a specific array, then averages it according to length, capping the result to two decimal points for readability
 function glancePercent(arr) {
     var x = 0;
     for (var i = 0; i < arr.length; i++) {
@@ -98,6 +116,7 @@ function glancePercent(arr) {
     return x;
 }
 
+//builds the table for all releveant members in the 'At a Glance' sections
 function glanceTable(allMembers) {
     var tBody = document.getElementById("glanceBody");
 
@@ -130,6 +149,7 @@ function glanceTable(allMembers) {
         tRow4.insertCell().innerHTML = averageLoyalty + "%";
     } else {
         tRow3.insertCell().innerHTML = "Independents:";
+        //Independents receive an N/A value because there are not enough values to generate a meaningful statistic
         tRow3.insertCell().innerHTML = "N/A";
         tRow3.insertCell().innerHTML = "N/A";
 
@@ -146,6 +166,7 @@ function glanceTable(allMembers) {
 
 }
 
+/* ----- BEST ATTENDANCE TABLE FUNCTIONS ----- */
 
 function bestAttendRes(arrValue) {
     var numArray = [];
@@ -157,14 +178,25 @@ function bestAttendRes(arrValue) {
     return numArray;
 }
 
-function mostLoyalRes(arrValue) {
-    var numArray = [];
-    for (var i = 0; i < arrValue.length; i++) {
-        numArray.push(arrValue[i].votes_with_party_pct);
-    }
-    numArray = numArray.sort();
+function topAttendTable() {
 
-    return numArray;
+    var tBody = document.getElementById("mostAttendBody");
+    var topTen = memArray.length / 10;
+    topTen = Math.floor(topTen);
+
+    for (var i = 0; i < topTen; i++) {
+        var tRow1 = tBody.insertRow();
+        if (memArray[i].middle_name == null) {
+            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name;
+        } else {
+            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name + " " + memArray[i].middle_name;
+        }
+        tRow1.insertCell().innerHTML = memArray[i].party;
+        tRow1.insertCell().innerHTML = memArray[i].state;
+        tRow1.insertCell().innerHTML = memArray[i].seniority;
+        tRow1.insertCell().innerHTML = memArray[i].missed_votes;
+        tRow1.insertCell().innerHTML = memArray[i].missed_votes_pct;
+    }
 }
 
 function topAttendTableDem() {
@@ -186,6 +218,137 @@ function topAttendTableDem() {
         tRow1.insertCell().innerHTML = demArray[i].seniority;
         tRow1.insertCell().innerHTML = demArray[i].missed_votes;
         tRow1.insertCell().innerHTML = demArray[i].missed_votes_pct;
+    }
+}
+
+function topAttendTableRep() {
+
+    var tBody = document.getElementById("mostAttendBodyRep");
+    var topTenRep = repArr().length / 10;
+    topTenRep = Math.floor(topTenRep);
+
+    for (var i = 0; i < topTenRep; i++) {
+        var tRow1 = tBody.insertRow();
+        if (repubArray[i].middle_name == null) {
+            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name;
+        } else {
+            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name + " " + repubArray[i].middle_name;
+        }
+        tRow1.insertCell().innerHTML = repubArray[i].state;
+        tRow1.insertCell().innerHTML = repubArray[i].seniority;
+        tRow1.insertCell().innerHTML = repubArray[i].missed_votes;
+        tRow1.insertCell().innerHTML = repubArray[i].missed_votes_pct;
+    }
+}
+
+function topAttendTableInd() {
+
+    var tBody = document.getElementById("mostAttendBodyInd");
+    var tRow1 = tBody.insertRow();
+    tRow1.insertCell().innerHTML = "There are no Independent representatives to display.";
+}
+
+/* ----- WORST ATTENDANCE TABLE FUNCTIONS ----- */
+
+function leastAttendTable() {
+    var tBody = document.getElementById("leastAttendBody");
+    var topTen = memArray.length / 10;
+    topTen = Math.floor(topTen);
+    console.log(memArray);
+    for (var i = memArray.length - 1; i > memArray.length - topTen; i--) {
+        var tRow1 = tBody.insertRow();
+        if (memArray[i].middle_name == null) {
+            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name;
+        } else {
+            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name + " " + memArray[i].middle_name;
+        }
+        tRow1.insertCell().innerHTML = memArray[i].party;
+        tRow1.insertCell().innerHTML = memArray[i].state;
+        tRow1.insertCell().innerHTML = memArray[i].seniority;
+        tRow1.insertCell().innerHTML = memArray[i].missed_votes;
+        tRow1.insertCell().innerHTML = memArray[i].missed_votes_pct;
+    }
+}
+
+function leastAttendTableDem() {
+
+    var tBody = document.getElementById("leastAttendBodyDem");
+    var dArray = bestAttendRes(demArr());
+
+    var topTenDem = demArr().length / 10;
+    topTenDem = Math.floor(topTenDem);
+
+    for (var i = demArray.length - 1; i > demArray.length - topTenDem; i--) {
+        var tRow1 = tBody.insertRow();
+        if (demArray[i].middle_name == null) {
+            tRow1.insertCell().innerHTML = demArray[i].last_name + ", " + demArray[i].first_name;
+        } else {
+            tRow1.insertCell().innerHTML = demArray[i].last_name + ", " + demArray[i].first_name + " " + demArray[i].middle_name;
+        }
+        tRow1.insertCell().innerHTML = demArray[i].state;
+        tRow1.insertCell().innerHTML = demArray[i].seniority;
+        tRow1.insertCell().innerHTML = demArray[i].missed_votes;
+        tRow1.insertCell().innerHTML = demArray[i].missed_votes_pct;
+    }
+}
+
+function leastAttendTableRep() {
+
+    var tBody = document.getElementById("leastAttendBodyRep");
+    var topTenRep = repArr().length / 10;
+    topTenRep = Math.floor(topTenRep);
+
+    for (var i = repubArray.length - 1; i > repubArray.length - topTenRep; i--) {
+        var tRow1 = tBody.insertRow();
+        if (repubArray[i].middle_name == null) {
+            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name;
+        } else {
+            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name + " " + repubArray[i].middle_name;
+        }
+        tRow1.insertCell().innerHTML = repubArray[i].state;
+        tRow1.insertCell().innerHTML = repubArray[i].seniority;
+        tRow1.insertCell().innerHTML = repubArray[i].missed_votes;
+        tRow1.insertCell().innerHTML = repubArray[i].missed_votes_pct;
+    }
+}
+
+function leastAttendTableInd() {
+
+    var tBody = document.getElementById("leastAttendBodyInd");
+    var tRow1 = tBody.insertRow();
+    tRow1.insertCell().innerHTML = "There are no Independent representatives to display.";
+}
+
+/* ----- MOST LOYAL TABLE FUNCTIONS ----- */
+
+function mostLoyalRes(arrValue) {
+    var numArray = [];
+    for (var i = 0; i < arrValue.length; i++) {
+        numArray.push(arrValue[i].votes_with_party_pct);
+    }
+    numArray = numArray.sort();
+
+    return numArray;
+}
+
+function topLoyalTable() {
+
+    var tBody = document.getElementById("mostLoyalBody");
+    var topTen = memLoyal.length / 10;
+    topTen = Math.floor(topTen);
+
+    for (var i = memLoyal.length - 1; i > memLoyal.length - topTen; i--) {
+        var tRow1 = tBody.insertRow();
+        if (memLoyal[i].middle_name == null) {
+            tRow1.insertCell().innerHTML = memLoyal[i].last_name + ", " + memLoyal[i].first_name;
+        } else {
+            tRow1.insertCell().innerHTML = memLoyal[i].last_name + ", " + memLoyal[i].first_name + " " + memLoyal[i].middle_name;
+        }
+        tRow1.insertCell().innerHTML = memLoyal[i].party;
+        tRow1.insertCell().innerHTML = memLoyal[i].state;
+        tRow1.insertCell().innerHTML = memLoyal[i].seniority;
+        tRow1.insertCell().innerHTML = memLoyal[i].missed_votes;
+        tRow1.insertCell().innerHTML = memLoyal[i].votes_with_party_pct;
     }
 }
 
@@ -212,27 +375,6 @@ function topLoyalTableDem() {
     }
 }
 
-
-function topAttendTableRep() {
-
-    var tBody = document.getElementById("mostAttendBodyRep");
-    var topTenRep = repArr().length / 10;
-    topTenRep = Math.floor(topTenRep);
-
-    for (var i = 0; i < topTenRep; i++) {
-        var tRow1 = tBody.insertRow();
-        if (repubArray[i].middle_name == null) {
-            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name;
-        } else {
-            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name + " " + repubArray[i].middle_name;
-        }
-        tRow1.insertCell().innerHTML = repubArray[i].state;
-        tRow1.insertCell().innerHTML = repubArray[i].seniority;
-        tRow1.insertCell().innerHTML = repubArray[i].missed_votes;
-        tRow1.insertCell().innerHTML = repubArray[i].missed_votes_pct;
-    }
-}
-
 function topLoyalTableRep() {
 
     var tBody = document.getElementById("mostLoyalBodyRep");
@@ -253,14 +395,6 @@ function topLoyalTableRep() {
     }
 }
 
-function topAttendTableInd() {
-
-    var tBody = document.getElementById("mostAttendBodyInd");
-    var tRow1 = tBody.insertRow();
-    tRow1.insertCell().innerHTML = "There are no Independent representatives to display.";
-}
-
-
 function topLoyalTableInd() {
 
     var tBody = document.getElementById("mostLoyalBodyInd");
@@ -268,67 +402,7 @@ function topLoyalTableInd() {
     tRow1.insertCell().innerHTML = "There are no Independent representatives to display.";
 }
 
-function topAttendTable() {
-
-    var tBody = document.getElementById("mostAttendBody");
-    var topTen = memArray.length / 10;
-    topTen = Math.floor(topTen);
-
-    for (var i = 0; i < topTen; i++) {
-        var tRow1 = tBody.insertRow();
-        if (memArray[i].middle_name == null) {
-            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name;
-        } else {
-            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name + " " + memArray[i].middle_name;
-        }
-        tRow1.insertCell().innerHTML = memArray[i].party;
-        tRow1.insertCell().innerHTML = memArray[i].state;
-        tRow1.insertCell().innerHTML = memArray[i].seniority;
-        tRow1.insertCell().innerHTML = memArray[i].missed_votes;
-        tRow1.insertCell().innerHTML = memArray[i].missed_votes_pct;
-    }
-}
-
-function topLoyalTable() {
-
-    var tBody = document.getElementById("mostLoyalBody");
-    var topTen = memLoyal.length / 10;
-    topTen = Math.floor(topTen);
-
-    for (var i = memLoyal.length - 1; i > memLoyal.length - topTen; i--) {
-        var tRow1 = tBody.insertRow();
-        if (memLoyal[i].middle_name == null) {
-            tRow1.insertCell().innerHTML = memLoyal[i].last_name + ", " + memLoyal[i].first_name;
-        } else {
-            tRow1.insertCell().innerHTML = memLoyal[i].last_name + ", " + memLoyal[i].first_name + " " + memLoyal[i].middle_name;
-        }
-        tRow1.insertCell().innerHTML = memLoyal[i].party;
-        tRow1.insertCell().innerHTML = memLoyal[i].state;
-        tRow1.insertCell().innerHTML = memLoyal[i].seniority;
-        tRow1.insertCell().innerHTML = memLoyal[i].missed_votes;
-        tRow1.insertCell().innerHTML = memLoyal[i].votes_with_party_pct;
-    }
-}
-
-function leastAttendTable() {
-    var tBody = document.getElementById("leastAttendBody");
-    var topTen = memArray.length / 10;
-    topTen = Math.floor(topTen);
-    console.log(memArray);
-    for (var i = memArray.length - 1; i > memArray.length - topTen; i--) {
-        var tRow1 = tBody.insertRow();
-        if (memArray[i].middle_name == null) {
-            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name;
-        } else {
-            tRow1.insertCell().innerHTML = memArray[i].last_name + ", " + memArray[i].first_name + " " + memArray[i].middle_name;
-        }
-        tRow1.insertCell().innerHTML = memArray[i].party;
-        tRow1.insertCell().innerHTML = memArray[i].state;
-        tRow1.insertCell().innerHTML = memArray[i].seniority;
-        tRow1.insertCell().innerHTML = memArray[i].missed_votes;
-        tRow1.insertCell().innerHTML = memArray[i].missed_votes_pct;
-    }
-}
+/* ----- LEAST LOYAL TABLE FUNCTIONS ----- */
 
 function leastLoyalTable() {
 
@@ -348,28 +422,6 @@ function leastLoyalTable() {
         tRow1.insertCell().innerHTML = memLoyal[i].seniority;
         tRow1.insertCell().innerHTML = memLoyal[i].missed_votes;
         tRow1.insertCell().innerHTML = memLoyal[i].votes_with_party_pct;
-    }
-}
-
-function leastAttendTableDem() {
-
-    var tBody = document.getElementById("leastAttendBodyDem");
-    var dArray = bestAttendRes(demArr());
-
-    var topTenDem = demArr().length / 10;
-    topTenDem = Math.floor(topTenDem);
-
-    for (var i = demArray.length - 1; i > demArray.length - topTenDem; i--) {
-        var tRow1 = tBody.insertRow();
-        if (demArray[i].middle_name == null) {
-            tRow1.insertCell().innerHTML = demArray[i].last_name + ", " + demArray[i].first_name;
-        } else {
-            tRow1.insertCell().innerHTML = demArray[i].last_name + ", " + demArray[i].first_name + " " + demArray[i].middle_name;
-        }
-        tRow1.insertCell().innerHTML = demArray[i].state;
-        tRow1.insertCell().innerHTML = demArray[i].seniority;
-        tRow1.insertCell().innerHTML = demArray[i].missed_votes;
-        tRow1.insertCell().innerHTML = demArray[i].missed_votes_pct;
     }
 }
 
@@ -395,26 +447,6 @@ function leastLoyalTableDem() {
     }
 }
 
-function leastAttendTableRep() {
-
-    var tBody = document.getElementById("leastAttendBodyRep");
-    var topTenRep = repArr().length / 10;
-    topTenRep = Math.floor(topTenRep);
-
-    for (var i = repubArray.length - 1; i > repubArray.length - topTenRep; i--) {
-        var tRow1 = tBody.insertRow();
-        if (repubArray[i].middle_name == null) {
-            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name;
-        } else {
-            tRow1.insertCell().innerHTML = repubArray[i].last_name + ", " + repubArray[i].first_name + " " + repubArray[i].middle_name;
-        }
-        tRow1.insertCell().innerHTML = repubArray[i].state;
-        tRow1.insertCell().innerHTML = repubArray[i].seniority;
-        tRow1.insertCell().innerHTML = repubArray[i].missed_votes;
-        tRow1.insertCell().innerHTML = repubArray[i].missed_votes_pct;
-    }
-}
-
 function leastLoyalTableRep() {
 
     var tBody = document.getElementById("leastLoyalBodyRep");
@@ -433,13 +465,6 @@ function leastLoyalTableRep() {
         tRow1.insertCell().innerHTML = repLoyal[i].missed_votes;
         tRow1.insertCell().innerHTML = repLoyal[i].votes_with_party_pct;
     }
-}
-
-function leastAttendTableInd() {
-
-    var tBody = document.getElementById("leastAttendBodyInd");
-    var tRow1 = tBody.insertRow();
-    tRow1.insertCell().innerHTML = "There are no Independent representatives to display.";
 }
 
 function leastLoyalTableInd() {

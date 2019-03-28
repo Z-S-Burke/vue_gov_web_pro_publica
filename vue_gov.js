@@ -1,3 +1,5 @@
+/* ----- JSON OBJECT FOR STATE LIST ----- */
+
 var states = usStates;
 
 new Vue({
@@ -15,12 +17,12 @@ new Vue({
             houseURL: "https://api.propublica.org/congress/v1/113/house/members.json"
         };
     },
-
-
     methods: {
         getData(url) {
+            //URL will be determined by page title
             fetch(url, {
                     headers: {
+                        //information is live from ProPublica and this is the required key
                         "X-API-Key": "5jjnxg7qrhV2Bqz8558zV7SlSng0EMuyuOHGuiHl",
                         "Content-Type": "application/json"
                     },
@@ -34,6 +36,7 @@ new Vue({
                     this.members = data.results[0].members;
                     console.log(this.members)
                 })
+                //finds all the republicans from the live data
                 .then(allRep => {
                     for (let i = 0; i < this.members.length; i++) {
                         if (this.members[i].party == "R") {
@@ -42,6 +45,7 @@ new Vue({
                     }
                     console.log(this.repub);
                 })
+                //finds all the democrats from the liva data
                 .then(allDem => {
                     for (let i = 0; i < this.members.length; i++) {
                         if (this.members[i].party == "D") {
@@ -50,6 +54,7 @@ new Vue({
                     }
                     console.log(this.dem);
                 })
+                //finds all the independents from the live data 
                 .then(allInd => {
                     for (let i = 0; i < this.members.length; i++) {
                         if (this.members[i].party == "I") {

@@ -82,7 +82,8 @@
             <div class="d-flex justify-content-end" style="width: 50%">
                 <div class="justify-content-around">
                     <select v-bind:value="stateSelect" v-model="stateSelect">
-                        <label> State: <option v-for="(state, index) in states"> {{state.abbreviation}} </option> </label>
+                        <option> Please Select a State </option>
+                        <option v-for="(state, index) in states"> {{state.abbreviation}} </option>
                     </select>
                 </div>
             </div>

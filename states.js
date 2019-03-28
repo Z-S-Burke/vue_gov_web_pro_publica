@@ -1,9 +1,5 @@
     var usStates = [
         {
-            name: 'Select a state',
-            abbreviation: '--'
-        },
-        {
             name: 'ALABAMA',
             abbreviation: 'AL'
         },
