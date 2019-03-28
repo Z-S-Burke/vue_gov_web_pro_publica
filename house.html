@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title> house </title>
     <link rel="stylesheet" href="assets/stylesheet/gov.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -98,46 +99,46 @@
                     <th> Votes with Party </th>
                 </tr>
             </thead>
-            <tbody class="bg-light text-dark" v-for="(rep, index) in house" :key="house.id">
+            <tbody class="bg-light text-dark" v-for="(member, index) in members" :key="members.id">
                 <tr v-if="parties.length == 0 && stateSelect.length == 0" style="text-align: center">
-                    <td> {{rep.title}} </td>
-                    <td v-if="rep.middle_name == null"> {{rep.last_name}}, {{rep.first_name}} </td>
-                    <td v-else> {{rep.last_name}}, {{rep.first_name}} {{rep.middle_name}} </td>
-                    <td> {{rep.party}} </td>
-                    <td> {{rep.state}} </td>
-                    <td v-if="rep.seniority == 1"> {{rep.seniority}} year </td>
-                    <td v-else> {{rep.seniority}} years </td>
-                    <td> {{rep.votes_with_party_pct}}&#37;</td>
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
                 </tr>
-                <tr v-for="(party, index) in parties" v-if="parties[index] == rep.party && stateSelect.length == 0" style="text-align: center">
-                    <td> {{rep.title}} </td>
-                    <td v-if="rep.middle_name == null"> {{rep.last_name}}, {{rep.first_name}} </td>
-                    <td v-else> {{rep.last_name}}, {{rep.first_name}} {{rep.middle_name}} </td>
-                    <td> {{rep.party}} </td>
-                    <td> {{rep.state}} </td>
-                    <td v-if="rep.seniority == 1"> {{rep.seniority}} year </td>
-                    <td v-else> {{rep.seniority}} years </td>
-                    <td> {{rep.votes_with_party_pct}}&#37;</td>
+                <tr v-for="(party, index) in parties" v-if="parties[index] == member.party && stateSelect.length == 0" style="text-align: center">
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
                 </tr>
-                <tr v-if="parties.length == 0 && stateSelect == rep.state" style="text-align: center">
-                    <td> {{rep.title}} </td>
-                    <td v-if="rep.middle_name == null"> {{rep.last_name}}, {{rep.first_name}} </td>
-                    <td v-else> {{rep.last_name}}, {{rep.first_name}} {{rep.middle_name}} </td>
-                    <td> {{rep.party}} </td>
-                    <td> {{rep.state}} </td>
-                    <td v-if="rep.seniority == 1"> {{rep.seniority}} year </td>
-                    <td v-else> {{rep.seniority}} years </td>
-                    <td> {{rep.votes_with_party_pct}}&#37;</td>
+                <tr v-if="parties.length == 0 && stateSelect == member.state" style="text-align: center">
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
                 </tr>
-                <tr v-for="(party, index) in parties" v-if="parties[index] == rep.party && stateSelect == rep.state" style="text-align: center">
-                    <td> {{rep.title}} </td>
-                    <td v-if="rep.middle_name == null"> {{rep.last_name}}, {{rep.first_name}} </td>
-                    <td v-else> {{rep.last_name}}, {{rep.first_name}} {{rep.middle_name}} </td>
-                    <td> {{rep.party}} </td>
-                    <td> {{rep.state}} </td>
-                    <td v-if="rep.seniority == 1"> {{rep.seniority}} year </td>
-                    <td v-else> {{rep.seniority}} years </td>
-                    <td> {{rep.votes_with_party_pct}}&#37;</td>
+                <tr v-for="(party, index) in parties" v-if="parties[index] == member.party && stateSelect == member.state" style="text-align: center">
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
                 </tr>
             </tbody>
         </table>
@@ -155,7 +156,18 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <script>
+        glanceTable(allMembers)
+        topLoyalTable();
+        topLoyalTableDem();
+        topLoyalTableRep();
+        topLoyalTableInd();
+        leastLoyalTable();
+        leastLoyalTableDem();
+        leastLoyalTableRep();
+        leastLoyalTableInd();
+    </script>
+    
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title> senate </title>
     <link rel="stylesheet" href="assets/stylesheet/gov.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -80,13 +81,13 @@
             </div>
             <div class="d-flex justify-content-end" style="width: 50%">
                 <div class="justify-content-around">
-                    <select v-bind:value="stateSelect" v-model="stateSelect" >
-                        <option v-for="(state, index) in states"> {{state.abbreviation}} </option>
+                    <select v-bind:value="stateSelect" v-model="stateSelect">
+                        <label> State: <option v-for="(state, index) in states"> {{state.abbreviation}} </option> </label>
                     </select>
                 </div>
             </div>
         </div>
-        <table class="table table-hover my-3">
+        <table class="table table-hover mt-3" id="app">
             <thead class="thead-dark">
                 <tr class="border" style="text-align: center">
                     <th> Members </th>
@@ -97,49 +98,50 @@
                     <th> Votes with Party </th>
                 </tr>
             </thead>
-            <tbody class="bg-light text-dark" v-for="(senator, index) in senate" :key="senate.id">
+            <tbody class="bg-light text-dark" v-for="(member, index) in members" :key="members.id">
                 <tr v-if="parties.length == 0 && stateSelect.length == 0" style="text-align: center">
-                    <td> {{senator.title}} </td>
-                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
-                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
-                    <td> {{senator.party}} </td>
-                    <td> {{senator.state}} </td>
-                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
-                    <td v-else> {{senator.seniority}} years </td>
-                    <td> {{senator.votes_with_party_pct}}&#37;</td>
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
                 </tr>
-                <tr v-for="(party, index) in parties" v-if="parties[index] == senator.party && stateSelect.length == 0" style="text-align: center">
-                    <td> {{senator.title}} </td>
-                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
-                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
-                    <td> {{senator.party}} </td>
-                    <td> {{senator.state}} </td>
-                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
-                    <td v-else> {{senator.seniority}} years </td>
-                    <td> {{senator.votes_with_party_pct}}&#37;</td>
+                <tr v-for="(party, index) in parties" v-if="parties[index] == member.party && stateSelect.length == 0" style="text-align: center">
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
                 </tr>
-                <tr v-if="parties.length == 0 && stateSelect == senator.state" style="text-align: center">
-                    <td> {{senator.title}} </td>
-                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
-                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
-                    <td> {{senator.party}} </td>
-                    <td> {{senator.state}} </td>
-                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
-                    <td v-else> {{senator.seniority}} years </td>
-                    <td> {{senator.votes_with_party_pct}}&#37;</td>
-                </tr> 
-                <tr v-for="(party, index) in parties" v-if="parties[index] == senator.party && stateSelect == senator.state" style="text-align: center">
-                    <td> {{senator.title}} </td>
-                    <td v-if="senator.middle_name == null"> {{senator.last_name}}, {{senator.first_name}} </td>
-                    <td v-else> {{senator.last_name}}, {{senator.first_name}} {{senator.middle_name}} </td>
-                    <td> {{senator.party}} </td>
-                    <td> {{senator.state}} </td>
-                    <td v-if="senator.seniority == 1"> {{senator.seniority}} year </td>
-                    <td v-else> {{senator.seniority}} years </td>
-                    <td> {{senator.votes_with_party_pct}}&#37;</td>
-                </tr> 
+                <tr v-if="parties.length == 0 && stateSelect == member.state" style="text-align: center">
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
+                </tr>
+                <tr v-for="(party, index) in parties" v-if="parties[index] == member.party && stateSelect == member.state" style="text-align: center">
+                    <td> {{member.title}} </td>
+                    <td v-if="member.middle_name == null"> {{member.last_name}}, {{member.first_name}} </td>
+                    <td v-else> {{member.last_name}}, {{member.first_name}} {{member.middle_name}} </td>
+                    <td> {{member.party}} </td>
+                    <td> {{member.state}} </td>
+                    <td v-if="member.seniority == 1"> {{member.seniority}} year </td>
+                    <td v-else> {{member.seniority}} years </td>
+                    <td> {{member.votes_with_party_pct}}&#37;</td>
+                </tr>
             </tbody>
         </table>
+        <div class=col style="height: 30px"> </div>
         <footer class="mt-5">
             <div class="d-flex justify-content-center text-light bg-dark">
                 <p> &copy;2019 Transparent Government in Fact | TGIF </p>
@@ -148,8 +150,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="/states.js"></script>
-    <script src="/vue_gov.js"> </script>
+    <script src="/states.js"> </script>
+    <script src="vue_gov.js"> </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

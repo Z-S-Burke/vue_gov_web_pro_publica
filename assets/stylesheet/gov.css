@@ -1,15 +1,36 @@
-.rBorder { 
+.rBorder {
     border-right-width: thin;
     border-right-style: groove;
     border-right-color: slategray;
     opacity: .2;
-    height: 100px; 
+    height: 100px;
 }
 
-.lBorder { 
+.lBorder {
     border-left-width: thin;
     border-left-style: groove;
     border-left-color: slategray;
     opacity: .2;
     height: 100px;
+}
+
+[v-cloak] > * {
+    display: none;
+}
+
+[v-cloak]::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-image: url(/assets/images/giphy.gif);
+    background-size: cover;
+    left: 50%;
+    top: 50%;
+     !important
+}
+
+.statsHeader {
+    
 }

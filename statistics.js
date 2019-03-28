@@ -212,6 +212,7 @@ function topLoyalTableDem() {
     }
 }
 
+
 function topAttendTableRep() {
 
     var tBody = document.getElementById("mostAttendBodyRep");
